@@ -7,6 +7,7 @@
 - **Right sidebar** — an "On this page" table of contents built from the page's `H2`/`H3` headings, with scrollspy highlighting.
 
 There is no build step and no external dependency: the admin editor uses jQuery UI Sortable, which ships with WordPress.    
+
 **Version 1.1.1** Author: XIA ZIXIN · [GitHub](https://github.com/xiazixin/Wordpress_doc_plugin)
 
 ## Features
