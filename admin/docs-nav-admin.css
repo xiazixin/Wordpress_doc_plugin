@@ -73,6 +73,11 @@
 	max-width: 420px;
 }
 
+.docs-nav-doc .docs-nav-doc-title {
+	flex: 1 1 auto;
+	max-width: 260px;
+}
+
 #docs-nav-empty {
 	color: #646970;
 	font-style: italic;

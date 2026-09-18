@@ -80,6 +80,7 @@ function docs_layout_sanitize_nav_tree( $input ) {
 						$clean_group['docs'][] = array(
 							'id'      => docs_layout_nav_clean_node_id( isset( $doc['id'] ) ? $doc['id'] : '', 'd' ),
 							'page_id' => $page_id,
+							'title'   => isset( $doc['title'] ) ? sanitize_text_field( $doc['title'] ) : '',
 						);
 					}
 				}
@@ -108,7 +109,8 @@ function docs_layout_sanitize_nav_tree( $input ) {
  * )
  *
  * Each project: id, title, groups[]; each group: id, title, docs[];
- * each doc: id, page_id, title, url, current.
+ * each doc: id, page_id, title, url, current. The doc title is the
+ * custom title from the tree when set, otherwise the page's live title.
  */
 function docs_layout_get_nav_for_page( $current_id ) {
 	$tree = docs_layout_get_nav_tree();
@@ -146,7 +148,7 @@ function docs_layout_get_nav_for_page( $current_id ) {
 				$resolved_group['docs'][] = array(
 					'id'      => $doc['id'],
 					'page_id' => (int) $doc['page_id'],
-					'title'   => get_the_title( $post ),
+					'title'   => ! empty( $doc['title'] ) ? $doc['title'] : get_the_title( $post ),
 					'url'     => get_permalink( $post ),
 					'current' => $is_current,
 				);

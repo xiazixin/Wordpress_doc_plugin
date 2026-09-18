@@ -106,7 +106,7 @@ function docs_layout_render_group_row( $group, $p_index, $g_index, $pages ) {
 	<?php
 }
 
-/** Render one doc row: a page dropdown. */
+/** Render one doc row: a page dropdown plus an optional custom-title input. */
 function docs_layout_render_doc_row( $doc, $p_index, $g_index, $d_index, $pages ) {
 	$base  = 'docs_nav[projects][' . $p_index . '][groups][' . $g_index . '][docs][' . $d_index . ']';
 	$found = false;
@@ -128,6 +128,7 @@ function docs_layout_render_doc_row( $doc, $p_index, $g_index, $d_index, $pages 
 				<option value="<?php echo esc_attr( $doc['page_id'] ); ?>" selected>(missing page #<?php echo esc_html( $doc['page_id'] ); ?>)</option>
 			<?php endif; ?>
 		</select>
+		<input type="text" class="docs-nav-doc-title" name="<?php echo esc_attr( $base ); ?>[title]" value="<?php echo esc_attr( isset( $doc['title'] ) ? $doc['title'] : '' ); ?>" placeholder="Custom title (optional)">
 		<button type="button" class="button docs-nav-remove-doc">Remove</button>
 	</div>
 	<?php
@@ -193,7 +194,7 @@ function docs_layout_render_nav_admin_page() {
 		<?php docs_layout_render_group_row( array( 'id' => '', 'title' => '', 'docs' => array() ), '__P__', '__G__', $pages ); ?>
 	</script>
 	<script type="text/html" id="tmpl-docs-nav-doc">
-		<?php docs_layout_render_doc_row( array( 'id' => '', 'page_id' => 0 ), '__P__', '__G__', '__D__', $pages ); ?>
+		<?php docs_layout_render_doc_row( array( 'id' => '', 'page_id' => 0, 'title' => '' ), '__P__', '__G__', '__D__', $pages ); ?>
 	</script>
 	<?php
 }
