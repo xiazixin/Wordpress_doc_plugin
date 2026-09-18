@@ -1,5 +1,5 @@
 /**
- * Docs Layout — builds the on-page table of contents from h2/h3 headings
+ * Wordpress Doc Plugin — builds the on-page table of contents from h2/h3 headings
  * in .docs-content, with scrollspy highlighting.
  */
 (function () {

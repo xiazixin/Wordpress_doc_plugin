@@ -1,6 +1,6 @@
-# Docs Layout
+# Wordpress Doc Plugin
 
-**Docs Layout** is a small WordPress plugin that turns any page into documentation with a three-column layout:
+**Wordpress Doc Plugin** is a small WordPress plugin that turns any page into documentation with a three-column layout:
 
 - **Left sidebar** — docs navigation managed from the **Docs Nav** admin screen (Projects → Groups → Docs) with drag-and-drop ordering, or an automatic fallback to the page hierarchy.
 - **Middle** — the page content.
@@ -10,7 +10,7 @@ There is no build step and no external dependency: the admin editor uses jQuery 
 
 ## Features
 
-- **Page template** — "Docs Layout (left nav + TOC)" appears in the editor's template list and is applied per page.
+- **Page template** — "Wordpress Doc Plugin (left nav + TOC)" appears in the editor's template list and is applied per page.
 - **Managed navigation tree** — build Projects → Groups → Docs from the **Docs Nav** admin screen; add, remove, and reorder rows by dragging their handle.
 - **Automatic fallback** — pages using the template with no managed navigation configured fall back to the page hierarchy.
 - **On-page table of contents** — generated from `H2` (sections) and `H3` (sub-sections) headings; missing anchor ids are created on the fly and the section in view stays highlighted while scrolling.
@@ -35,7 +35,7 @@ There is no build step and no external dependency: the admin editor uses jQuery 
 ### 1. Apply the template
 
 1. Create or edit the page that should use the docs layout.
-2. In the editor sidebar, set **Template** to **Docs Layout (left nav + TOC)** (in the classic editor: **Page Attributes → Template**).
+2. In the editor sidebar, set **Template** to **Wordpress Doc Plugin (left nav + TOC)** (in the classic editor: **Page Attributes → Template**).
 3. Save the page and view it on the front end.
 
 Assign the template to every page that should use the layout, including all child and sibling doc pages you want navigable.
@@ -94,7 +94,7 @@ The TOC is built in the browser from the headings inside the page content:
 
 ## Troubleshooting
 
-- **The sidebar shows the page hierarchy instead of my tree** — check that the current page uses the Docs Layout template; the fallback is only used when the managed tree is empty or none of its entries resolve to published pages.
+- **The sidebar shows the page hierarchy instead of my tree** — check that the current page uses the Wordpress Doc Plugin template; the fallback is only used when the managed tree is empty or none of its entries resolve to published pages.
 - **A page is missing from the sidebar** — make sure it is published and that a doc row in **Docs Nav** references it.
 - **The TOC is empty** — the page has no `H2`/`H3` headings; section headings must use the Heading block (or `<h2>`/`<h3>` markup) at those levels.
 

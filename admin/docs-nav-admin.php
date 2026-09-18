@@ -158,7 +158,7 @@ function docs_layout_render_nav_admin_page() {
 		<?php endif; ?>
 
 		<p class="description">
-			Build the left sidebar navigation shown on pages using the <strong>Docs Layout</strong> template.
+			Build the left sidebar navigation shown on pages using the <strong>Wordpress Doc Plugin</strong> template.
 			A project contains groups; a group contains documentation pages. Drag rows by their handle to reorder.
 			Projects, groups, or docs left empty are dropped on save.
 		</p>

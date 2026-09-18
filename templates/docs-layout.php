@@ -1,6 +1,6 @@
 <?php
 /**
- * Docs Layout template — left docs navigation (managed via the Docs Nav admin,
+ * Wordpress Doc Plugin template — left docs navigation (managed via the Docs Nav admin,
  * falling back to the page hierarchy), content in the middle, right on-page TOC.
  * Rendered by the docs-layout plugin via template_include.
  */
