@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Wordpress Doc Plugin
  * Description: Documentation page template with a managed left sidebar navigation (Projects → Groups → Docs, see the "Docs Nav" admin menu) and right sidebar on-page table of contents.
- * Version: 1.2.1
+ * Version: 1.3.0
  * Author: Xiaz
  */
 
@@ -10,8 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const DOCS_LAYOUT_TEMPLATE = 'docs-layout';
-const DOCS_LAYOUT_VERSION  = '1.2.1';
+const DOCS_LAYOUT_TEMPLATE      = 'docs-layout';
+const DOCS_LAYOUT_VERSION       = '1.3.0';
+const DOCS_LAYOUT_CHROME_OPTION = 'docs_layout_show_header_footer';
 
 define( 'DOCS_LAYOUT_URL', plugin_dir_url( __FILE__ ) );
 
@@ -19,6 +20,11 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/nav-tree.php';
 
 if ( is_admin() ) {
 	require_once plugin_dir_path( __FILE__ ) . 'admin/docs-nav-admin.php';
+}
+
+/** Whether docs-layout pages render the theme's header and footer (stored as '1'/'0', default on). */
+function docs_layout_show_header_footer() {
+	return '1' === get_option( DOCS_LAYOUT_CHROME_OPTION, '1' );
 }
 
 /** Add the template to the page attribute dropdown. */

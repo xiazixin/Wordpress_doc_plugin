@@ -36,6 +36,7 @@ add_action( 'admin_init', function () {
 
 	$input = isset( $_POST['docs_nav'] ) ? wp_unslash( $_POST['docs_nav'] ) : array();
 	update_option( DOCS_LAYOUT_NAV_OPTION, docs_layout_sanitize_nav_tree( $input ) );
+	update_option( DOCS_LAYOUT_CHROME_OPTION, isset( $_POST['docs_layout_show_header_footer'] ) ? '1' : '0' );
 
 	wp_safe_redirect( admin_url( 'admin.php?page=' . DOCS_LAYOUT_NAV_MENU_SLUG . '&updated=1' ) );
 	exit;
@@ -155,7 +156,7 @@ function docs_layout_render_nav_admin_page() {
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
 		<?php if ( isset( $_GET['updated'] ) && '1' === $_GET['updated'] ) : ?>
-			<div class="notice notice-success is-dismissible"><p>Navigation saved.</p></div>
+			<div class="notice notice-success is-dismissible"><p>Changes saved.</p></div>
 		<?php endif; ?>
 
 		<p class="description">
@@ -183,7 +184,15 @@ function docs_layout_render_nav_admin_page() {
 
 			<p><button type="button" class="button button-secondary" id="docs-nav-add-project">+ Add project</button></p>
 
-			<?php submit_button( 'Save navigation' ); ?>
+			<h2>Layout</h2>
+			<p>
+				<label for="docs-layout-show-header-footer">
+					<input type="checkbox" id="docs-layout-show-header-footer" name="docs_layout_show_header_footer" value="1" <?php checked( docs_layout_show_header_footer() ); ?>>
+					Show the theme's header and footer on pages using the Wordpress Doc Plugin template.
+				</label>
+			</p>
+
+			<?php submit_button( 'Save changes' ); ?>
 		</form>
 	</div>
 

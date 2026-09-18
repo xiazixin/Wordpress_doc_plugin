@@ -23,8 +23,9 @@ function docs_layout_render_template_part( $part ) {
 	return ob_get_clean();
 }
 
-$docs_layout_header = docs_layout_render_template_part( 'header' );
-$docs_layout_footer = docs_layout_render_template_part( 'footer' );
+$docs_layout_show_chrome = docs_layout_show_header_footer();
+$docs_layout_header      = $docs_layout_show_chrome ? docs_layout_render_template_part( 'header' ) : '';
+$docs_layout_footer      = $docs_layout_show_chrome ? docs_layout_render_template_part( 'footer' ) : '';
 
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>

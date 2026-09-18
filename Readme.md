@@ -8,13 +8,14 @@
 
 There is no build step and no external dependency: the admin editor uses jQuery UI Sortable, which ships with WordPress.    
 
-**Version 1.2.1** Author: XIA ZIXIN · [GitHub](https://github.com/xiazixin/Wordpress_doc_plugin)
+**Version 1.3.0** Author: XIA ZIXIN · [GitHub](https://github.com/xiazixin/Wordpress_doc_plugin)
 
 ## Features
 
 - **Page template** — "Wordpress Doc Plugin (left nav + TOC)" appears in the editor's template list and is applied per page.
 - **Managed navigation tree** — build Projects → Groups → Docs from the **Docs Nav** admin screen; add, remove, and reorder rows by dragging their handle.
 - **Custom doc titles** — each doc row takes an optional custom title for the sidebar; left empty, the page's live title is used.
+- **Optional theme header/footer** — a Layout checkbox on the **Docs Nav** screen turns the theme's header and footer on or off for every page using the template (on by default).
 - **Automatic fallback** — pages using the template with no managed navigation configured fall back to the page hierarchy.
 - **On-page table of contents** — generated from `H2` (sections) and `H3` (sub-sections) headings; missing anchor ids are created on the fly and the section in view stays highlighted while scrolling.
 - **Resilient rendering** — nav entries pointing at deleted or unpublished pages are skipped, and groups/projects left empty after that are pruned automatically. Doc links — and titles, unless a custom title is set — are resolved live, so page renames and permalink changes are picked up without re-saving the navigation.
@@ -48,7 +49,7 @@ Assign the template to every page that should use the layout, including all chil
 1. In wp-admin, open **Docs Nav** (document icon, below Comments).
 2. Click **+ Add project**, give it a name, then **+ Add group** inside it, then **+ Add documentation** and pick a published page from the dropdown. Optionally type a custom title next to the dropdown; leave it empty to show the page's title.
 3. Drag rows by the handle to reorder projects, groups, and docs.
-4. Click **Save navigation**.
+4. Click **Save changes**.
 
 Behavior notes:
 
@@ -56,6 +57,7 @@ Behavior notes:
 - When the current page belongs to the tree, the sidebar shows only its project; on any other docs-layout page the whole tree is shown.
 - Only published pages are selectable, and docs whose target page is currently unpublished are skipped on the front end without losing their slot in the tree.
 - A custom title is fixed text and does not follow page renames; leave it empty to always show the current page title.
+- The **Layout** checkbox below the form controls whether pages using the template render the theme's header and footer (on by default); it saves with the same **Save changes** button.
 
 ### 3. Fallback navigation
 
@@ -91,8 +93,9 @@ The TOC is built in the browser from the headings inside the page content:
 ## Data and customization
 
 - The tree is stored in the `docs_layout_nav_tree` option: an array of projects (`id`, `title`, `groups[]`) → groups (`id`, `title`, `docs[]`) → docs (`id`, `page_id`, `title` — the custom title; empty means the page title is shown).
+- The `docs_layout_show_header_footer` option (`'1'`/`'0'`, default `'1'`) controls whether the theme's header and footer are rendered on docs-layout pages.
 - Saving requires the `manage_options` capability and a valid nonce; text is sanitized with `sanitize_text_field()`, ids with `sanitize_key()`, and page ids with `absint()`.
-- Relevant functions: `docs_layout_get_nav_tree()`, `docs_layout_sanitize_nav_tree()`, and `docs_layout_get_nav_for_page( $page_id )`.
+- Relevant functions: `docs_layout_get_nav_tree()`, `docs_layout_sanitize_nav_tree()`, `docs_layout_get_nav_for_page( $page_id )`, and `docs_layout_show_header_footer()`.
 - The layout picks up the theme's preset colors (`--wp--preset--color--accent`, `--contrast`, `--contrast-2/3/4`) with built-in fallbacks, so it inherits the site palette. Override in a child theme or via Additional CSS if needed.
 - When a user is logged in, the sticky sidebars and anchor targets are offset to clear the 32px admin bar.
 
@@ -104,8 +107,9 @@ The TOC is built in the browser from the headings inside the page content:
 
 ## Uninstall
 
-The plugin ships no uninstall routine, so deactivating or deleting it leaves the `docs_layout_nav_tree` option in the database. Remove the option for a clean uninstall, for example:
+The plugin ships no uninstall routine, so deactivating or deleting it leaves the `docs_layout_nav_tree` and `docs_layout_show_header_footer` options in the database. Remove both for a clean uninstall, for example:
 
 ```
 wp option delete docs_layout_nav_tree
+wp option delete docs_layout_show_header_footer
 ```
