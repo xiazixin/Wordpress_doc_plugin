@@ -1,0 +1,79 @@
+/* Docs Nav admin — Projects → Groups → Docs editor */
+
+.docs-nav-admin .docs-nav-projects {
+	max-width: 960px;
+	margin: 1rem 0;
+}
+
+.docs-nav-project {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 12px;
+	margin-bottom: 12px;
+}
+
+.docs-nav-group {
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.docs-nav-doc {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+	padding: 6px 8px;
+	margin-bottom: 6px;
+}
+
+.docs-nav-row-head {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.docs-nav-groups,
+.docs-nav-docs {
+	margin: 10px 0 0 28px;
+}
+
+.docs-nav-add-line {
+	margin: 8px 0 0 28px;
+}
+
+.docs-nav-admin .drag-handle {
+	cursor: grab;
+	color: #787c82;
+	flex: 0 0 auto;
+	user-select: none;
+}
+
+.docs-nav-admin .drag-handle:active {
+	cursor: grabbing;
+}
+
+.docs-nav-sortable-placeholder {
+	background: #f0f0f1;
+	border: 1px dashed #a7aaad;
+	border-radius: 4px;
+	min-height: 26px;
+	padding: 6px 8px;
+	margin-bottom: 10px;
+	visibility: visible !important;
+}
+
+.docs-nav-doc select {
+	flex: 1 1 auto;
+	max-width: 420px;
+}
+
+#docs-nav-empty {
+	color: #646970;
+	font-style: italic;
+}

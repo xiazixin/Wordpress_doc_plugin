@@ -1,0 +1,180 @@
+/* Docs Layout — left nav, content, right TOC */
+
+.docs-main {
+	padding: 2rem 1.5rem 4rem;
+}
+
+.docs-grid {
+	display: grid;
+	grid-template-columns: 260px minmax(0, 1fr) 230px;
+	gap: 2.5rem;
+	max-width: 1440px;
+	margin: 0 auto;
+	align-items: start;
+}
+
+/* Sticky sidebars */
+.docs-sidebar-left,
+.docs-sidebar-right {
+	position: sticky;
+	top: 1.5rem;
+	margin-top: 1rem;
+	max-height: calc(100vh - 3rem);
+	overflow-y: auto;
+}
+
+/* Logged-in: drop sticky sidebars + anchor targets below the 32px admin bar.
+   (The bar is only fixed above 600px; below 1100px the sidebars are static
+   anyway, so 32px is the only offset needed.) */
+body.admin-bar .docs-sidebar-left,
+body.admin-bar .docs-sidebar-right {
+	top: calc(1.5rem + 32px);
+	max-height: calc(100vh - 3rem - 32px);
+}
+
+body.admin-bar .docs-content h2,
+body.admin-bar .docs-content h3 {
+	scroll-margin-top: calc(1.5rem + 32px);
+}
+
+/* Left nav */
+.docs-nav-hub,
+.docs-toc-title {
+	font-size: 0.8rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-weight: 700;
+	margin: 0 0 0.75rem;
+	color: var(--wp--preset--color--contrast-3, #6b6b6b);
+}
+
+.docs-nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-left: 2px solid var(--wp--preset--color--contrast-4, #e5e5e5);
+}
+
+.docs-nav li a {
+	display: block;
+	padding: 0.35rem 0.75rem;
+	color: var(--wp--preset--color--contrast-2, #444);
+	text-decoration: none;
+	border-left: 2px solid transparent;
+	margin-left: -2px;
+	font-size: 0.95rem;
+}
+
+.docs-nav li a:hover {
+	color: var(--wp--preset--color--contrast, #111);
+}
+
+.docs-nav li.current a {
+	border-left-color: var(--wp--preset--color--accent, #4d5bd9);
+	color: var(--wp--preset--color--accent, #4d5bd9);
+	font-weight: 600;
+	background: color-mix(in srgb, var(--wp--preset--color--accent, #4d5bd9) 6%, transparent);
+}
+
+/* Managed nav (Projects → Groups → Docs) */
+.docs-nav-project-block + .docs-nav-project-block {
+	margin-top: 2rem;
+}
+
+.docs-nav-group-title {
+	display: block;
+	padding: 0.6rem 0.75rem 0.2rem;
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-weight: 700;
+	color: var(--wp--preset--color--contrast-3, #6b6b6b);
+}
+
+.docs-nav .docs-nav-group > ul {
+	margin-left: 0.75rem;
+}
+
+/* Content */
+.docs-content {
+	min-width: 0;
+	max-width: 820px;
+}
+
+.docs-content h2 {
+	margin-top: 2.5rem;
+	scroll-margin-top: 1.5rem;
+}
+
+.docs-content h3 {
+	margin-top: 1.75rem;
+	scroll-margin-top: 1.5rem;
+}
+
+.docs-title {
+	margin-top: 0;
+	font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+/* Right TOC */
+.docs-toc ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-left: 2px solid var(--wp--preset--color--contrast-4, #e5e5e5);
+}
+
+.docs-toc li a {
+	display: block;
+	padding: 0.25rem 0.75rem;
+	color: var(--wp--preset--color--contrast-2, #555);
+	text-decoration: none;
+	border-left: 2px solid transparent;
+	margin-left: -2px;
+	font-size: 0.88rem;
+	line-height: 1.4;
+}
+
+.docs-toc li a:hover {
+	color: var(--wp--preset--color--contrast, #111);
+}
+
+.docs-toc li.active > a {
+	border-left-color: var(--wp--preset--color--accent, #4d5bd9);
+	color: var(--wp--preset--color--accent, #4d5bd9);
+	font-weight: 600;
+}
+
+.docs-toc ul ul {
+	margin-left: 0.5rem;
+}
+
+.docs-toc-empty {
+	font-size: 0.88rem;
+	color: var(--wp--preset--color--contrast-3, #888);
+	margin: 0;
+}
+
+/* Smooth anchor scrolling */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Mobile / narrow screens: stack everything */
+@media (max-width: 1100px) {
+	.docs-grid {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+
+	.docs-sidebar-left,
+	.docs-sidebar-right {
+		position: static;
+		max-height: none;
+		overflow: visible;
+	}
+
+	.docs-sidebar-right {
+		order: 3;
+	}
+}
