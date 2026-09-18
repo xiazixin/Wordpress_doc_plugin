@@ -8,7 +8,7 @@
 
 There is no build step and no external dependency: the admin editor uses jQuery UI Sortable, which ships with WordPress.    
 
-**Version 1.2.0** Author: XIA ZIXIN · [GitHub](https://github.com/xiazixin/Wordpress_doc_plugin)
+**Version 1.2.1** Author: XIA ZIXIN · [GitHub](https://github.com/xiazixin/Wordpress_doc_plugin)
 
 ## Features
 
@@ -23,7 +23,7 @@ There is no build step and no external dependency: the admin editor uses jQuery 
 
 ## Requirements
 
-- WordPress 5.9+ recommended — the template renders the theme's header and footer through `block_template_part()` when available.
+- WordPress 5.9+ recommended — the template renders the theme's header and footer through `block_template_part()` when available, buffered before `wp_head()` so their block support styles load in the head.
 - No PHP extensions, libraries, or build tools are required. jQuery UI Sortable (bundled with WordPress) powers the admin drag-and-drop.
 
 ## Installation

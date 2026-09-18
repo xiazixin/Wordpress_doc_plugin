@@ -9,6 +9,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Render a theme template part (header/footer) to a string. Template parts
+ * are rendered before wp_head() so the block support styles they generate
+ * are enqueued in time to be printed in the head.
+ */
+function docs_layout_render_template_part( $part ) {
+	if ( ! function_exists( 'block_template_part' ) ) {
+		return '';
+	}
+	ob_start();
+	block_template_part( $part );
+	return ob_get_clean();
+}
+
+$docs_layout_header = docs_layout_render_template_part( 'header' );
+$docs_layout_footer = docs_layout_render_template_part( 'footer' );
+
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -19,11 +36,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 <body <?php body_class( 'docs-layout-body' ); ?>>
 <?php wp_body_open(); ?>
 
-<?php
-if ( function_exists( 'block_template_part' ) ) {
-	block_template_part( 'header' );
-}
-?>
+<?php if ( '' !== $docs_layout_header ) : ?>
+<header class="wp-block-template-part">
+	<?php echo $docs_layout_header; ?>
+</header>
+<?php endif; ?>
 
 <main id="docs-main" class="docs-main">
 <?php
@@ -111,10 +128,12 @@ while ( have_posts() ) :
 <?php endwhile; ?>
 </main>
 
+<?php if ( '' !== $docs_layout_footer ) : ?>
+<footer class="wp-block-template-part">
+	<?php echo $docs_layout_footer; ?>
+</footer>
+<?php endif; ?>
 <?php
-if ( function_exists( 'block_template_part' ) ) {
-	block_template_part( 'footer' );
-}
 wp_footer();
 ?>
 </body>
