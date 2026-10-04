@@ -23,6 +23,71 @@
 	overflow-y: auto;
 }
 
+/* Sidebar hide/expand toggle: the aside stays visible (the toggle button
+   sticks out past its edge) while scrolling moves to an inner wrapper. */
+.docs-sidebar-left {
+	overflow: visible;
+}
+
+.docs-sidebar-left-inner {
+	max-height: inherit;
+	overflow-y: auto;
+}
+
+.docs-nav-toggle {
+	position: absolute;
+	top: 0.15rem;
+	right: -13px;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	padding: 0;
+	border: 1px solid var(--wp--preset--color--contrast-4, #e5e5e5);
+	border-radius: 50%;
+	background: var(--wp--preset--color--base, #fff);
+	color: var(--wp--preset--color--contrast-2, #444);
+	cursor: pointer;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.docs-nav-toggle:hover {
+	color: var(--wp--preset--color--accent, #4d5bd9);
+	border-color: var(--wp--preset--color--accent, #4d5bd9);
+}
+
+.docs-nav-toggle:focus-visible {
+	outline: 2px solid var(--wp--preset--color--accent, #4d5bd9);
+	outline-offset: 2px;
+}
+
+/* Triangle: points left while the nav is visible (click to hide). */
+.docs-nav-toggle::before {
+	content: '';
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	border-right: 6px solid currentColor;
+	margin-right: 2px;
+}
+
+/* Collapsed nav: free the sidebar column and flip the triangle. */
+html.docs-nav-collapsed .docs-grid {
+	grid-template-columns: 0 minmax(0, 1fr) 230px;
+}
+
+html.docs-nav-collapsed .docs-sidebar-left-inner {
+	display: none;
+}
+
+html.docs-nav-collapsed .docs-nav-toggle::before {
+	border-right: none;
+	border-left: 6px solid currentColor;
+	margin-right: 0;
+	margin-left: 2px;
+}
+
 /* Logged-in: drop sticky sidebars + anchor targets below the 32px admin bar.
    (The bar is only fixed above 600px; below 1100px the sidebars are static
    anyway, so 32px is the only offset needed.) */
@@ -176,5 +241,17 @@ html {
 
 	.docs-sidebar-right {
 		order: 3;
+	}
+
+	.docs-nav-toggle {
+		display: none;
+	}
+
+	html.docs-nav-collapsed .docs-grid {
+		grid-template-columns: 1fr;
+	}
+
+	html.docs-nav-collapsed .docs-sidebar-left-inner {
+		display: block;
 	}
 }

@@ -1,9 +1,31 @@
 /**
  * Wordpress Doc Plugin — builds the on-page table of contents from h2/h3 headings
- * in .docs-content, with scrollspy highlighting.
+ * in .docs-content with scrollspy highlighting, and wires the left sidebar
+ * hide/expand toggle (state kept in localStorage).
  */
 (function () {
 	'use strict';
+
+	// Left sidebar hide/expand toggle.
+	var navToggle = document.querySelector('.docs-nav-toggle');
+	if (navToggle) {
+		var root = document.documentElement;
+		var applyNavState = function (collapsed) {
+			root.classList.toggle('docs-nav-collapsed', collapsed);
+			navToggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+			var label = collapsed ? 'Show navigation' : 'Hide navigation';
+			navToggle.setAttribute('aria-label', label);
+			navToggle.setAttribute('title', label);
+		};
+		applyNavState(root.classList.contains('docs-nav-collapsed'));
+		navToggle.addEventListener('click', function () {
+			var collapsed = !root.classList.contains('docs-nav-collapsed');
+			applyNavState(collapsed);
+			try {
+				window.localStorage.setItem('docsNavCollapsed', collapsed ? '1' : '0');
+			} catch (e) {}
+		});
+	}
 
 	var content = document.querySelector('.docs-content');
 	var toc = document.getElementById('docs-toc');

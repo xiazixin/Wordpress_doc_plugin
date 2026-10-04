@@ -32,6 +32,14 @@ $docs_layout_footer      = $docs_layout_show_chrome ? docs_layout_render_templat
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+	// Apply the saved sidebar state before first paint so the nav does not flash.
+	try {
+		if ( '1' === window.localStorage.getItem( 'docsNavCollapsed' ) ) {
+			document.documentElement.classList.add( 'docs-nav-collapsed' );
+		}
+	} catch ( e ) {}
+</script>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class( 'docs-layout-body' ); ?>>
@@ -73,6 +81,8 @@ while ( have_posts() ) :
 	?>
 	<div class="docs-grid">
 		<aside class="docs-sidebar-left" aria-label="Documentation navigation">
+			<button type="button" class="docs-nav-toggle" aria-expanded="true" aria-controls="docs-sidebar-left-inner" aria-label="Hide navigation" title="Hide navigation"></button>
+			<div class="docs-sidebar-left-inner" id="docs-sidebar-left-inner">
 			<?php
 			$managed_nav = function_exists( 'docs_layout_get_nav_for_page' ) ? docs_layout_get_nav_for_page( $current_id ) : null;
 			if ( $managed_nav ) :
@@ -114,6 +124,7 @@ while ( have_posts() ) :
 					</ul>
 				</nav>
 			<?php endif; ?>
+			</div>
 		</aside>
 
 		<article class="docs-content">
