@@ -95,8 +95,8 @@ while ( have_posts() ) :
 							<ul>
 								<?php foreach ( $project['groups'] as $group ) : ?>
 									<li class="docs-nav-group">
-										<span class="docs-nav-group-title"><?php echo esc_html( $group['title'] ); ?></span>
-										<ul>
+										<button type="button" class="docs-nav-group-title" aria-expanded="true" aria-controls="docs-nav-group-<?php echo esc_attr( $group['id'] ); ?>"><?php echo esc_html( $group['title'] ); ?></button>
+										<ul id="docs-nav-group-<?php echo esc_attr( $group['id'] ); ?>">
 											<?php foreach ( $group['docs'] as $doc ) : ?>
 												<li class="<?php echo ! empty( $doc['current'] ) ? 'current' : ''; ?>">
 													<a href="<?php echo esc_url( $doc['url'] ); ?>"><?php echo esc_html( $doc['title'] ); ?></a>

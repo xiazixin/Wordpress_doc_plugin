@@ -147,13 +147,49 @@ body.admin-bar .docs-content h3 {
 }
 
 .docs-nav-group-title {
-	display: block;
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+	width: 100%;
+	margin: 0;
 	padding: 0.6rem 0.75rem 0.2rem;
+	border: 0;
+	background: none;
+	font-family: inherit;
 	font-size: 0.78rem;
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
 	font-weight: 700;
+	text-align: left;
 	color: var(--wp--preset--color--contrast-3, #6b6b6b);
+	cursor: pointer;
+}
+
+.docs-nav-group-title:hover {
+	color: var(--wp--preset--color--contrast, #111);
+}
+
+.docs-nav-group-title:focus-visible {
+	outline: 2px solid var(--wp--preset--color--accent, #4d5bd9);
+	outline-offset: 2px;
+}
+
+/* Group triangle: points right, rotates down while the group is expanded. */
+.docs-nav-group-title::before {
+	content: '';
+	flex-shrink: 0;
+	border-top: 4px solid transparent;
+	border-bottom: 4px solid transparent;
+	border-left: 5px solid currentColor;
+	transition: transform 0.15s ease;
+}
+
+.docs-nav-group-title[aria-expanded="true"]::before {
+	transform: rotate(90deg);
+}
+
+.docs-nav-group-title[aria-expanded="false"] + ul {
+	display: none;
 }
 
 .docs-nav .docs-nav-group > ul {

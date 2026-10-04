@@ -8,7 +8,7 @@
 
 There is no build step and no external dependency: the admin editor uses jQuery UI Sortable, which ships with WordPress.    
 
-**Version 1.3.1** Author: XIA ZIXIN · [GitHub](https://github.com/xiazixin/Wordpress_doc_plugin)
+**Version 1.3.2** Author: XIA ZIXIN · [GitHub](https://github.com/xiazixin/Wordpress_doc_plugin)
 
 ## Features
 
@@ -21,6 +21,7 @@ There is no build step and no external dependency: the admin editor uses jQuery 
 - **Resilient rendering** — nav entries pointing at deleted or unpublished pages are skipped, and groups/projects left empty after that are pruned automatically. Doc links — and titles, unless a custom title is set — are resolved live, so page renames and permalink changes are picked up without re-saving the navigation.
 - **Sticky, responsive layout** — sidebars stick below the admin bar when logged in and stack into a single column on screens 1100px and narrower.
 - **Collapsible navigation** — a small triangle button on the left sidebar's edge hides the navigation so the content gets the extra room; the choice is remembered in the browser (localStorage). The button is hidden once the layout stacks on narrow screens.
+- **Collapsible nav groups** — in the managed navigation, each group title is a toggle (its triangle rotates) that hides or shows the group's docs. Collapsed groups are remembered in the browser too, but the group containing the current page always opens.
 - **Scoped assets** — the front-end CSS/JS load only on pages that use the template.
 
 ## Requirements
@@ -88,7 +89,7 @@ The TOC is built in the browser from the headings inside the page content:
 | `admin/docs-nav-admin.php` | "Docs Nav" admin screen: menu, nonce-protected save handler, row renderers. |
 | `admin/docs-nav-admin.js` | Add/remove rows and drag-to-reorder via jQuery UI Sortable. |
 | `admin/docs-nav-admin.css` | Admin screen styling. |
-| `assets/docs-layout.js` | Builds the TOC from the content headings, runs the scrollspy, and wires the sidebar hide/expand toggle. |
+| `assets/docs-layout.js` | Builds the TOC from the content headings, runs the scrollspy, and wires the sidebar hide/expand toggle and the collapsible nav groups. |
 | `assets/docs-layout.css` | Three-column layout, sticky sidebars, responsive stacking, collapse-toggle styling. |
 
 ## Data and customization

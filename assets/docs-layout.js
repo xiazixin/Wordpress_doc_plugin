@@ -1,7 +1,7 @@
 /**
  * Wordpress Doc Plugin — builds the on-page table of contents from h2/h3 headings
- * in .docs-content with scrollspy highlighting, and wires the left sidebar
- * hide/expand toggle (state kept in localStorage).
+ * in .docs-content with scrollspy highlighting, and wires the sidebar hide/expand
+ * toggle and the collapsible nav groups (state kept in localStorage).
  */
 (function () {
 	'use strict';
@@ -24,6 +24,42 @@
 			try {
 				window.localStorage.setItem('docsNavCollapsed', collapsed ? '1' : '0');
 			} catch (e) {}
+		});
+	}
+
+	// Collapsible groups in the managed nav. The group holding the current
+	// page always opens; other collapsed groups are remembered.
+	var groupToggles = document.querySelectorAll('.docs-nav-group-title');
+	if (groupToggles.length) {
+		var collapsedGroups = {};
+		try {
+			collapsedGroups = JSON.parse(window.localStorage.getItem('docsNavGroups') || '{}') || {};
+		} catch (e) {}
+		var storeCollapsedGroups = function () {
+			try {
+				window.localStorage.setItem('docsNavGroups', JSON.stringify(collapsedGroups));
+			} catch (e) {}
+		};
+		groupToggles.forEach(function (toggle) {
+			var key = toggle.getAttribute('aria-controls');
+			if (!key) {
+				return;
+			}
+			var group = toggle.parentElement;
+			var hasCurrent = group && group.querySelector('li.current');
+			if (collapsedGroups[key] && !hasCurrent) {
+				toggle.setAttribute('aria-expanded', 'false');
+			}
+			toggle.addEventListener('click', function () {
+				var collapse = toggle.getAttribute('aria-expanded') !== 'false';
+				toggle.setAttribute('aria-expanded', collapse ? 'false' : 'true');
+				if (collapse) {
+					collapsedGroups[key] = true;
+				} else {
+					delete collapsedGroups[key];
+				}
+				storeCollapsedGroups();
+			});
 		});
 	}
 
